@@ -1,12 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, Platform } from 'react-native';
 import { VideoPlayer } from './screens/VideoPlayer';
+import { LoginScreen } from './Screen/Login'
+import { Decoy } from './Screen/Decoy'
+import { SignUpScreen } from './Screen/Register'
+import { RecoverScreen } from './Screen/Forget'
+import { MainScreen } from './Screen/Main'
+import { BottomTabNav } from './Screen/Navigators/bottomTabNav'
+import { NavigationContainer } from '@react-navigation/native'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StackNav } from './Screen/Navigators/stackNav'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      </>
-    </View>
+    <NavigationContainer>
+      <StackNav/>
+    </NavigationContainer>
   );
 }
 
