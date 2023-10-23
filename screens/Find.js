@@ -3,7 +3,8 @@ import {StyleSheet, Text, View} from 'react-native'
 export const Find = () => {
     return(
         <View style={{flex:1}}>
-        <Text>Wow</Text>
+            <Text>Wow</Text>
+            <Text>Wow</Text>
         </View>
     )
 }
