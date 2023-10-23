@@ -5,7 +5,7 @@ import { VideoPlayer } from './screens/VideoPlayer';
 export default function App() {
   return (
     <View style={styles.container}>
-      </>
+      <VideoPlayer />
     </View>
   );
 }
