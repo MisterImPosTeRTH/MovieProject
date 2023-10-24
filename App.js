@@ -13,9 +13,15 @@ import { StackNav } from './screens/Navigators/stackNav'
 
 export default function App() {
   return (
+<<<<<<< HEAD
     <NavigationContainer>
       <StackNav/>
     </NavigationContainer>
+=======
+    <View style={styles.container}>
+      <VideoPlayer />
+    </View>
+>>>>>>> main
   );
 }
 
