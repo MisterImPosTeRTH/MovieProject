@@ -1,5 +1,5 @@
- import axios from 'axios'
-import {apiKey} from '../constrants'
+import axios from 'axios'
+const apiKey = '03a1dff00b9cb30d7b9205d934d2ce27'
 
 const baseURL = `https://api.themoviedb.org/3`
 const trendingMovie = `${baseURL}/trending/movie/day?api_key=${apiKey}`
