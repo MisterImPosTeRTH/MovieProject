@@ -13,7 +13,7 @@ export const Decoy = ({navigation}) => {
       <View style={styles.circleTopRight}></View>
 
       <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
-      <Text style = {{color:'#DE703C', fontSize:50, fontWeight:'bold'}}>Movie Do DE</Text>
+      <Text style = {{color:'#DE703C', fontSize:50, fontWeight:'bold'}}>Movie Do DEE</Text>
         <Text style = {{color:'#DE703C', fontSize:10}}>by POP & BRIGHT</Text>
       </View>
 
