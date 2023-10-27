@@ -52,6 +52,7 @@ export const MainScreen = ({navigation}) => {
             <MovieList text={"Trending"} movie={trending} navigation={navigation}/>
             <MovieList text={"Upcoming"} movie={upcoming} navigation={navigation}/>
             <MovieList text={"Top Rated"} movie={toprated} navigation={navigation}/>
+            <View style={{height: 20}}></View>
           </ScrollView>
         </View>
       </View>

@@ -25,7 +25,7 @@ export const MovieList = ({movie, navigation, text}) => {
     }
 
     return(
-        <View style={{flex:1, height: 230}}>
+        <View style={{flex:1, height: 230, marginBottom: 15}}>
             <Text style={{color:'white', fontSize: 30, fontWeight: 'bold', marginLeft: 15}}>{text}</Text>
             <View style={{flex:2,marginHorizontal: 10, marginTop: 10}}>
                 <FlatList
