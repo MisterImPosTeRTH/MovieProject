@@ -11,13 +11,14 @@ const searchMovie = `${baseURL}/search/movie?api_key=${apiKey}`
 const movieDetail = (id) => `${baseURL}/movie/${id}?api_key=${apiKey}`
 const movieCredit = (id) => `${baseURL}/movie/${id}/credits?api_key=${apiKey}`
 const movieSimilar = (id) => `${baseURL}/movie/${id}/similar?api_key=${apiKey}`
+const movieVideo = (id) => `${baseURL}/movie/${id}/videos?api_key=${apiKey}`
 
 const personDetail = (id) => `${baseURL}/person/${id}?api_key=${apiKey}`
 const personMovie = (id) => `${baseURL}/person/${id}/movie_credits?api_key=${apiKey}`
 
-export const image500 = posterPath=> posterPath? 'https://image.tmdb.org/t/p/w500'+posterPath : null;
-export const image342 = posterPath=> posterPath? 'https://image.tmdb.org/t/p/w342'+posterPath : null;
-export const image185 = posterPath=> posterPath? 'https://image.tmdb.org/t/p/w185'+posterPath : null;
+export const image500 = (posterPath) => posterPath? 'https://image.tmdb.org/t/p/w500'+posterPath : null;
+export const image342 = (posterPath) => posterPath? 'https://image.tmdb.org/t/p/w342'+posterPath : null;
+export const image185 = (posterPath) => posterPath? 'https://image.tmdb.org/t/p/w185'+posterPath : null;
 
 
 // fallback images 
@@ -61,6 +62,9 @@ export const fetchMovieCredits = (id)=>{
 }
 export const fetchSimilarMovies = (id)=>{
     return apiCall(movieSimilar(id));
+}
+export const fetchMovieVideo = (id) => {
+    return apiCall(movieVideo(id))
 }
 
 // person screen apis
