@@ -26,6 +26,7 @@ export const MoviePage = ({navigation}) => {
         const data = await fetchMovieVideo(id)
         if(data) {
             setVideo(data.results)
+            console.log(video)
         }
     }
 
@@ -51,22 +52,38 @@ export const MoviePage = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{flex:9}}>
+            <View style={{flex:9,width:'100%'}}>
                 <ScrollView>
                     <View style={{height:300, alignItems:'center', width: '100%'}}>
-                        <Image
-                            source={{uri:image500(movie?.backdrop_path)}}
-                            style={{width:'80%', height: '100%'}}
-                            />
+                        {
+                            movie?.poster_path?(
+                                <Image
+                                    source={{uri:image500(movie?.poster_path)}}
+                                    style={{width:'60%', height: '100%'}}
+                                />
+                            ):(
+                                <View style={{backgroundColor:'white',height:'100%',width:'50%', justifyContent: 'center', alignItems:'center'}}>
+                                    <Text style={{color:'black', fontSize:25}}>No Image</Text>
+                                </View>
+                            )
+                        }
+
                     </View>
                     <View style={{marginHorizontal:10}}>
                         <View>
                             <Text style={styles.titleText}>{movie?.title}</Text>
                             <Text style={styles.statusText}>{movie?.status} - {movie?.release_date?.split('-')[0]} - {movie?.runtime} min</Text>
-                            <Text style={styles.detailText}>{movie?.overview}</Text>
+                            <Text style={styles.detailText}>
+                            {
+                                movie?.overview?(movie?.overview):("Coming Soon")
+                            }
+                            </Text>
                         </View>
                         <View style={{height: 200}}>
+                        {
                             <VideoPlayer video={video} />
+                        }
+                            
                         </View>
                         <View style={{height: 50}}></View>
                     </View>
@@ -99,7 +116,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     detailText: {
-        color: 'white',
+        color: 'lightgray',
         textAlign:'center',
         fontSize: 14,
         marginVertical: 20

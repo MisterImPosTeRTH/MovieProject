@@ -1,7 +1,7 @@
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react'
-import { fetchTrendingMovies, fetchTopRatedMovies, fetchUpcomingMovies } from '../api/movieDB'
+import { fetchTrendingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchMoviesByGenre } from '../api/movieDB'
 import { MovieList } from './components/MovieList'
 
 export const MainScreen = ({navigation}) => {
@@ -40,9 +40,25 @@ export const MainScreen = ({navigation}) => {
     <View style={styles.container}>
       <View style={{flex:1, marginTop: 50}}>
         <View style={{flex:1, flexDirection: 'row', width: '100%'}}>
-          <View style={{flex: 7}}></View>
           <View style={{flex: 2, justifyContent: 'center', alignItems:'center'}}>
-            <TouchableOpacity style={{justifyContent: 'center', alignItems:'center'}}>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems:'center'}}
+              onPress={()=>{
+                navigation.navigate("Genre")
+              }}
+            >
+              <MaterialCommunityIcons name="movie-roll" size={35} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 7}}>
+          </View>
+          <View style={{flex: 2, justifyContent: 'center', alignItems:'center'}}>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems:'center'}}
+              onPress={()=>{
+                navigation.navigate("Search")
+              }}
+            >
               <MaterialCommunityIcons name="movie-search" size={35} color="white" />
             </TouchableOpacity>
           </View>
