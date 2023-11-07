@@ -6,7 +6,7 @@ const RenderMovies = ({item, pressMethod}) => {
         <View style={{flex:1, marginLeft: 10, width: 120}}>
             <TouchableOpacity
                 onPress={() => pressMethod(item)}
-                >
+            >
                 <Image 
                     source={{uri: image500(item.poster_path)}} 
                     style={{
