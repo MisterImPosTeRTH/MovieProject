@@ -19,7 +19,7 @@ export const BottomTabNav = () => {
                 },
                 headerShown: false,
             }}>
-            <BottomTab.Screen name="Download" component={DownloadScreen}
+            <BottomTab.Screen name="Favorite" component={DownloadScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {
                         return <AntDesign name={focused ? 'heart' : 'hearto'} color={color} size={size} />;
