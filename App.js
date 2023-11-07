@@ -2,12 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { StackNav } from './screens/Navigators/stackNav'
+import { Provider } from 'react-redux';
+import { store } from './screens/Redux/Store';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNav/>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNav/>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

@@ -6,13 +6,58 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
+    Alert,
     } from 'react-native';
-  import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { signUp } from './Firebase/auth';
   
-  export const SignUpScreen = ({navigation}) => {
+  export const SignUpScreen = (props) => {
+    const navigation = props.nav
+
+    const [profile, setProfile] = useState({'firstname':'', 'lastname':'', 'email':'', 'password':''})
+
+    const setFirstname = (text) => {
+      setProfile(oldValue => ({
+        ...oldValue,
+        firstname:text
+      }))
+    }
   
-    const onSignUpPress = () => {
+    const setLastname = (text) => {
+      setProfile(oldValue => ({
+        ...oldValue,
+        lastname:text
+      }))
+    }
+    
+    const setEmail = (text) => {
+      setProfile(oldValue => ({
+        ...oldValue,
+        email:text
+      }))
+    }
+
+    const setPassword = (text) => {
+      setProfile(oldValue => ({
+        ...oldValue,
+        password:text
+      }))
+    }
+    
+    const unsuccess = (msg) => {
+      console.log(msg)
+      Alert.alert(msg)
+    }
+
+    const allSuccess = (doc) => {
+      Alert.alert(`${doc.email} has been added to system`)
       navigation.goBack()
+    }
+
+    const onSignUpPress = () => {
+      console.log(`profile ${profile.firstname}`)
+      signUp(profile, allSuccess, unsuccess)
     }
     
     const onCancelPress = () => {
@@ -33,14 +78,14 @@ import {
             </View>
   
             <View style = {{
-              flex:2,
+              flex:1,
               alignItems:'center',
               justifyContent:'center',
               paddingHorizontal:25,
               }}>
               <View style = {styles.textInput}>
                   <AntDesign
-                    style = {{margin:20}}
+                    style = {{margin:10}}
                     name="user"
                     size={24}
                     color="lightgray" />
@@ -49,13 +94,52 @@ import {
                     width:'100%',
                     height:'100%',
                     fontSize:23,}}
-                  placeholder = 'Username'
-                  placeholderTextColor = 'darkgray' />
+                  placeholder = 'Firstname'
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  value = {profile.firstname}
+                  onChangeText = {(text) => setFirstname(text)} />
+              </View>
+
+              <View style = {styles.textInput}>
+                  <AntDesign
+                    style = {{margin:10}}
+                    name="user"
+                    size={24}
+                    color="lightgray" />
+                <TextInput
+                  style = {{
+                    width:'100%',
+                    height:'100%',
+                    fontSize:23,}}
+                  placeholder = 'Lastname'
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  value = {profile.lastname}
+                  onChangeText = {(text) => setLastname(text)} />
+              </View>
+
+              <View style = {styles.textInput}>
+                  <MaterialIcons
+                    style = {{margin:10}}
+                    name="email"
+                    size={24}
+                    color="lightgray" />
+                <TextInput
+                  style = {{
+                    width:'100%',
+                    height:'100%',
+                    fontSize:23,}}
+                  placeholder = 'Email'
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  value = {profile.email}
+                  onChangeText = {(text) => setEmail(text)} />
               </View>
   
               <View style = {styles.textInput}>
                 <MaterialCommunityIcons
-                  style = {{margin:20}}
+                  style = {{margin:10}}
                   name="form-textbox-password"
                   size={24}
                   color="lightgray"
@@ -68,48 +152,15 @@ import {
                   }}
                   placeholder = 'Password'
                   placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
-              </View>
-              <View style = {styles.textInput}>
-                <MaterialCommunityIcons
-                  style = {{margin:20}}
-                  name="form-textbox-password"
-                  size={24}
-                  color="lightgray"
-                />
-                <TextInput
-                  style = {{
-                    width:'100%',
-                    height:'100%',
-                    fontSize:23,
-                  }}
-                  placeholder = 'Confirm-Password'
-                  placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
-              </View>
-  
-              <View style = {styles.textInput}>
-                <MaterialCommunityIcons
-                  style = {{margin:20}}
-                  name="email"
-                  size={24}
-                  color="lightgray"
-                />
-                <TextInput
-                  style = {{
-                    width:'100%',
-                    height:'100%',
-                    fontSize:23,
-                  }}
-                  placeholder = 'Email'
-                  placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
+                  secureTextEntry = {true}
+                  value = {profile.password}
+                  onChangeText = {(text) => setPassword(text)} />
               </View>
             </View>
   
             <View style = {{
               flex:1,
-              paddingTop:10,
+              paddingTop:20,
               alignItems:'center',
             }}>
               <View style = {styles.signUp}>
@@ -170,6 +221,7 @@ import {
       borderColor:'lightgray',
       borderRadius:999,
       marginHorizontal:15,
+      alignItems:'center',
     },
     signUp:{
       width:'90%',

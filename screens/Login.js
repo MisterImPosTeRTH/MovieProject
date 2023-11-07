@@ -6,12 +6,58 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
+    Alert,
     } from 'react-native';
-  import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+  import { AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+  import { login } from './Firebase/auth';
+  import { useState } from 'react';
+  import { useDispatch } from 'react-redux';
+  import { addProfile } from './Redux/AuthSlice';
   
-  export const LoginScreen = ({navigation}) => {
+  export const LoginScreen = (props) => {
+    const navigation = props.nav
+
+    const dispatch = useDispatch()
+
+    const [credential, setCredential] = useState({email:'', password:''})
+
+    const setEmail = (text) => {
+      console.log(`setEmail: ${text}`)
+      setCredential(oldValue => ({
+        ...oldValue,
+        email:text
+      }))
+    }
+
+    const setPassword = (text) => {
+      setCredential(oldValue => ({
+        ...oldValue,
+        password:text
+      }))
+    }
+
+    const success = (firstname, lastname, email) => {
+      console.log(`Login success ${email}`)
+      console.log(`Login success ${firstname}`)
+      console.log(`Login success ${lastname}`)
+
+      dispatch(addProfile({firstname:firstname, lastname:lastname, email:email}))
+      navigation.navigate({
+        name:'BottomTab',
+        param: {
+          user:email
+        }
+      })
+    }
+
+    const unsuccess = (msg) => {
+      console.log(msg)
+      Alert.alert(msg)
+    }
+
     const onSignInPress = () => {
-      navigation.push('BottomTab')
+      console.log(`credentia: ${credential.email}`)
+      login(credential.email, credential.password, success, unsuccess)
     }
 
     const onSignUpPress = () => {
@@ -49,9 +95,9 @@ import {
               paddingHorizontal:25
               }}>
               <View style = {styles.textInput}>
-                  <AntDesign
+                  <MaterialIcons
                     style = {{margin:10}}
-                    name="user"
+                    name="email"
                     size={24}
                     color="lightgray" />
                 <TextInput
@@ -59,8 +105,11 @@ import {
                     width:'100%',
                     height:'100%',
                     fontSize:23,}}
-                  placeholder = 'Username'
-                  placeholderTextColor = 'darkgray' />
+                  placeholder = 'Email'
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  value = {credential.email}
+                  onChangeText = {(text) => setEmail(text)} />
               </View>
   
               <View style = {styles.textInput}>
@@ -78,7 +127,9 @@ import {
                   }}
                   placeholder = 'Password'
                   placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
+                  secureTextEntry={true}
+                  value = {credential.password}
+                  onChangeText = {(text) => setPassword(text)} />
               </View>
             </View>
   
@@ -155,6 +206,7 @@ import {
       borderColor:'lightgray',
       borderRadius:999,
       marginHorizontal:10,
+      alignItems:'center',
     },
     signIn:{
       width:'90%',

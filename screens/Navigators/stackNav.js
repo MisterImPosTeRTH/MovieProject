@@ -9,13 +9,31 @@ import { MoviePage } from '../MoviePage'
 export const StackNav = () => {
   const Stack = createNativeStackNavigator()
 
+  const RegisterScreen = ({ navigation, route }) => {
+    return(
+      <SignUpScreen nav = {navigation} route = {route} />
+    )
+  }
+
+  const SignInScreen = ({ navigation, route }) => {
+    return(
+      <LoginScreen nav = {navigation} route = {route} />
+    )
+  }
+  
+  const BottomTabScreen = ({ navigation, route }) => {
+    return(
+      <BottomTabNav nav = {navigation} route = {route} />
+    )
+  }
+
   return(
     <Stack.Navigator initialRouteName = 'Decoy' screenOptions={{headerShown: false}}>
       <Stack.Screen name="Decoy" component={Decoy} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Login" component={SignInScreen} />
+      <Stack.Screen name="SignUp" component={RegisterScreen} />
       <Stack.Screen name="Recover" component={RecoverScreen} />
-      <Stack.Screen name="BottomTab" component={BottomTabNav}/>
+      <Stack.Screen name="BottomTab" component={BottomTabScreen}/>
       <Stack.Screen name="Movie" component={MoviePage}/>
     </Stack.Navigator>
   )
