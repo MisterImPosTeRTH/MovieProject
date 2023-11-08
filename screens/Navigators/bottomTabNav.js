@@ -8,6 +8,12 @@ import { DownloadScreen } from '../Download'
 export const BottomTabNav = () => {
     const BottomTab = createBottomTabNavigator();
 
+    const profileScreen = ({ navigation, route }) => {
+        return(
+            <ProfileScreen nav = {navigation} route = {route} />
+        )
+    }
+
     return (
         <BottomTab.Navigator
             initialRouteName="Main"
@@ -19,13 +25,6 @@ export const BottomTabNav = () => {
                 },
                 headerShown: false,
             }}>
-            <BottomTab.Screen name="Download" component={DownloadScreen}
-                options={{
-                    tabBarIcon: ({ focused, color, size }) => {
-                        return <AntDesign name={focused ? 'heart' : 'hearto'} color={color} size={size} />;
-                    },
-                }}
-            />
 
             <BottomTab.Screen name="Main" component={MainScreen}
                 options={{
@@ -35,8 +34,7 @@ export const BottomTabNav = () => {
                 }}
             />
 
-
-            <BottomTab.Screen name="Profile" component={ProfileScreen} 
+            <BottomTab.Screen name="Profile" component={profileScreen} 
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {
                         return <FontAwesome name={focused ? 'user' : 'user-o'} color={color} size={size} />;

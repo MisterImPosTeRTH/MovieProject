@@ -6,13 +6,30 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
+    Alert,
     } from 'react-native';
   import { AntDesign, MaterialCommunityIcons, } from '@expo/vector-icons';
+  import { resetPassword } from './Firebase/auth';
+  import { useState } from 'react';
   
-  export const RecoverScreen = ({navigation}) => {
+  export const RecoverScreen = (props) => {
+    const navigation = props.nav
+
+    const [email, setEmail] = useState('')
+
+    const success = (msg) => {
+      Alert.alert(msg)
+      navigation.navigate('Login')
+    }
+
+    const unsuccess = (msg) => {
+      console.log(msg)
+      Alert.alert(msg)
+    }
   
-    const onRecoverPress = () => {
-      navigation.goBack()
+    const onSendPress = () => {
+      console.log(`Send email to ${email}`)
+      resetPassword(email, success, unsuccess)
     }
     
     const onCancelPress = () => {
@@ -60,7 +77,9 @@ import {
                     height:'100%',
                     fontSize:23,}}
                   placeholder = 'Email'
-                  placeholderTextColor = 'darkgray' />
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  onChangeText={(text) => setEmail(text)} />
               </View>
             </View>
   
@@ -77,8 +96,8 @@ import {
                     justifyContent:'center',
                     alignItems:'center',
                     borderRadius:999}}
-                  onPress = {onRecoverPress}>
-                  <Text style = {{fontSize:20, color:'white'}}>Recover</Text>
+                  onPress = {onSendPress}>
+                  <Text style = {{fontSize:20, color:'white'}}>Send</Text>
                 </TouchableOpacity>
               </View>
               <View style = {styles.cancel}>
@@ -134,6 +153,7 @@ import {
       borderColor:'lightgray',
       borderRadius:999,
       marginHorizontal:10,
+      alignItems:'center'
     },
     recover:{
       borderWidth:1,

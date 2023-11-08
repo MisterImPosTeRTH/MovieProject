@@ -20,26 +20,11 @@ import {
     const dispatch = useDispatch()
 
     const [credential, setCredential] = useState({email:'', password:''})
-
-    const setEmail = (text) => {
-      console.log(`setEmail: ${text}`)
-      setCredential(oldValue => ({
-        ...oldValue,
-        email:text
-      }))
-    }
-
-    const setPassword = (text) => {
-      setCredential(oldValue => ({
-        ...oldValue,
-        password:text
-      }))
-    }
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const success = (firstname, lastname, email) => {
-      console.log(`Login success ${email}`)
-      console.log(`Login success ${firstname}`)
-      console.log(`Login success ${lastname}`)
+      console.log(`Login success: ${email}, ${firstname}, ${lastname}`)
 
       dispatch(addProfile({firstname:firstname, lastname:lastname, email:email}))
       navigation.navigate({
@@ -52,12 +37,19 @@ import {
 
     const unsuccess = (msg) => {
       console.log(msg)
-      Alert.alert(msg)
     }
 
     const onSignInPress = () => {
-      console.log(`credentia: ${credential.email}`)
-      login(credential.email, credential.password, success, unsuccess)
+      if(email == '' & password == '')
+      {
+        Alert.alert('Pless enter your email and password')
+      } else if(email == '') {
+        Alert.alert('Pless enter your email')
+      } else if(password == '') {
+        Alert.alert('Pless enter your password')
+      } else {
+      login(email, password, success, unsuccess)
+      }
     }
 
     const onSignUpPress = () => {
@@ -96,7 +88,7 @@ import {
               }}>
               <View style = {styles.textInput}>
                   <MaterialIcons
-                    style = {{margin:10}}
+                    style = {{margin:17}}
                     name="email"
                     size={24}
                     color="lightgray" />
@@ -108,13 +100,13 @@ import {
                   placeholder = 'Email'
                   placeholderTextColor = 'darkgray'
                   secureTextEntry = {false}
-                  value = {credential.email}
-                  onChangeText = {(text) => setEmail(text)} />
+                  value = {email}
+                  onChangeText = {(email) => setEmail(email)} />
               </View>
   
               <View style = {styles.textInput}>
                 <MaterialCommunityIcons
-                  style = {{margin:10}}
+                  style = {{margin:17}}
                   name="form-textbox-password"
                   size={24}
                   color="lightgray"
@@ -128,8 +120,8 @@ import {
                   placeholder = 'Password'
                   placeholderTextColor = 'darkgray'
                   secureTextEntry={true}
-                  value = {credential.password}
-                  onChangeText = {(text) => setPassword(text)} />
+                  value = {password}
+                  onChangeText = {(password) => setPassword(password)} />
               </View>
             </View>
   

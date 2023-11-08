@@ -8,8 +8,38 @@ import {
     TouchableOpacity,
     } from 'react-native';
   import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+  import { useSelector } from 'react-redux';
+  import { useState } from 'react';
+  import { logOut } from './Firebase/auth';
   
-  export const ProfileScreen = ({navigation}) => {
+  export const ProfileScreen = (props) => {
+    const navigation = props.nav
+
+    let authList = useSelector((state) => state.auths)
+    const lastItem = authList.slice(-1)
+
+    const [profile, setProfile] = useState({'firstname': lastItem[0].firstname,
+                                            'lastname' : lastItem[0].lastname,
+                                            'email': lastItem[0].email})
+
+    const logOutSuccess = () => {
+      navigation.navigate('Decoy')
+    }
+
+    const unsuccess = (msg) => {
+      console.log(msg)
+      Alert.alert(msg)
+    }
+
+    const onSignOutPress = () => {
+      console.log('Logout NOW!')
+      logOut(logOutSuccess, unsuccess)
+    }
+
+    const onChangePassPress = () => {
+      navigation.navigate('ChangePassword')
+    }
+
     return (
       <SafeAreaView style={styles.container}>
         <View style = {{width:'100%', height:Dimensions.get('window').height * 0.12}}></View>
@@ -39,15 +69,19 @@ import {
                   style = {{
                     width:'100%',
                     height:'100%',
-                    fontSize:23,}}
+                    fontSize:23,
+                  }}
                   placeholder = 'Firstname'
-                  placeholderTextColor = 'darkgray' />
+                  placeholderTextColor = 'darkgray'
+                  secureTextEntry = {false}
+                  value = {profile.firstname}
+                  onChangeText = {() => {}} />
               </View>
   
               <View style = {styles.textInput}>
-                <MaterialCommunityIcons
+                <AntDesign
                   style = {{margin:20}}
-                  name="form-textbox-password"
+                  name="user"
                   size={24}
                   color="lightgray"
                 />
@@ -59,7 +93,9 @@ import {
                   }}
                   placeholder = 'Lastname'
                   placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
+                  secureTextEntry = {false}
+                  value = {profile.lastname}
+                  onChangeText = {() => {}} />
               </View>
   
               <View style = {styles.textInput}>
@@ -77,7 +113,9 @@ import {
                   }}
                   placeholder = 'Email'
                   placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
+                  secureTextEntry = {false}
+                  value = {profile.email}
+                  onChangeText = {() => {}} />
               </View>
             </View>
   
@@ -94,6 +132,7 @@ import {
                     justifyContent:'center',
                     alignItems:'center',
                     borderRadius:999}}
+                    onPress={onChangePassPress}
                 >
                   <Text style = {{fontSize:20, color:'white'}}>Change Password</Text>
                 </TouchableOpacity>
@@ -106,6 +145,7 @@ import {
                     borderRadius:999,
                     justifyContent:'center',
                     alignItems:'center'}}
+                  onPress={onSignOutPress}
                 >
                   <Text style = {{fontSize:20, color:'#DE703C'}}>Sign Out</Text>
                 </TouchableOpacity>
@@ -144,6 +184,7 @@ import {
       borderColor:'lightgray',
       borderRadius:999,
       marginHorizontal:15,
+      alignItems:'center'
     },
     signUp:{
       width:'90%',

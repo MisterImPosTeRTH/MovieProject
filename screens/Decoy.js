@@ -1,12 +1,22 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { useEffect } from 'react'
-export const Decoy = ({navigation}) => {
+import { getCurrentSignInUser } from './Firebase/auth'
+
+export const Decoy = (props) => {
+  const navigation = props.nav
+
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('Login')
-      navigation.reset({index:0,routes:[{name:'Login'}]})
-    }, 1500)
-  })
+    const currentUser = getCurrentSignInUser()
+
+      setTimeout(() => {
+        if( currentUser == null){
+          navigation.navigate('Login')
+          navigation.reset({ index:0, routes: [{ name: 'Login' }] })
+        } else {
+          navigation.reset({ index:0, routes: [{ name:  'BottomTab' }] })
+        }
+      }, 1500)
+  }, [navigation])
 
   return (
     <SafeAreaView style={styles.welcome}>
