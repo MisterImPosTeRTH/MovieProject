@@ -40,7 +40,7 @@ import {
                     width:'100%',
                     height:'100%',
                     fontSize:23,}}
-                  placeholder = 'Username'
+                  placeholder = 'Firstname'
                   placeholderTextColor = 'darkgray' />
               </View>
   
@@ -57,24 +57,7 @@ import {
                     height:'100%',
                     fontSize:23,
                   }}
-                  placeholder = 'Password'
-                  placeholderTextColor = 'darkgray'
-                  secureTextEntry={true} />
-              </View>
-              <View style = {styles.textInput}>
-                <MaterialCommunityIcons
-                  style = {{margin:20}}
-                  name="form-textbox-password"
-                  size={24}
-                  color="lightgray"
-                />
-                <TextInput
-                  style = {{
-                    width:'100%',
-                    height:'100%',
-                    fontSize:23,
-                  }}
-                  placeholder = 'Confirm-Password'
+                  placeholder = 'Lastname'
                   placeholderTextColor = 'darkgray'
                   secureTextEntry={true} />
               </View>
@@ -112,7 +95,7 @@ import {
                     alignItems:'center',
                     borderRadius:999}}
                 >
-                  <Text style = {{fontSize:20, color:'white'}}>Sign Up</Text>
+                  <Text style = {{fontSize:20, color:'white'}}>Change Password</Text>
                 </TouchableOpacity>
               </View>
               <View style = {styles.cancel}>
@@ -124,7 +107,7 @@ import {
                     justifyContent:'center',
                     alignItems:'center'}}
                 >
-                  <Text style = {{fontSize:20, color:'#DE703C'}}>Cancel</Text>
+                  <Text style = {{fontSize:20, color:'#DE703C'}}>Sign Out</Text>
                 </TouchableOpacity>
               </View>
             </View>
