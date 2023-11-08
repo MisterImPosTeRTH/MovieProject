@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {fetchMoviesByGenre, image500} from '../api/movieDB'
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -8,6 +8,7 @@ export const GenreMovies = ({navigation}) => {
     const {params: item} = useRoute()
     const [data,setData] = useState([])
     const [page,setPage] = useState(1)
+    const scrollRef = useRef();
 
     useEffect(()=>{
         getMovies(item.id)
@@ -20,6 +21,13 @@ export const GenreMovies = ({navigation}) => {
           console.log(data)
         }
         console.log("Wow")
+    }
+
+    const toTop = () => {
+        scrollRef.current?.scrollTo({
+          y: 0,
+          animated: true,
+        });
     }
 
 
@@ -44,7 +52,7 @@ export const GenreMovies = ({navigation}) => {
                 
             </View>
             <View style={{flex:15,width:'100%'}}>
-                <ScrollView>
+                <ScrollView ref={scrollRef}>
                     <View style={{flexDirection:'row', flexWrap: 'wrap'}}>
                     {
                         data.map((item,index)=>{
@@ -87,6 +95,7 @@ export const GenreMovies = ({navigation}) => {
                         <TouchableOpacity
                             onPress={()=>{
                                 setPage(page-1)
+                                toTop()
                             }}
                         >
                             <FontAwesome5 name="angle-left" size={50} color="white" />
@@ -103,6 +112,7 @@ export const GenreMovies = ({navigation}) => {
                         <TouchableOpacity
                             onPress={()=>{
                                 setPage(page+1)
+                                toTop()
                             }}
                         >
                             <FontAwesome5 name="angle-right" size={50} color="white" />
